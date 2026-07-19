@@ -1,6 +1,6 @@
 import type { Route } from './+types/home';
 import { useLoaderData } from 'react-router';
-import Hero from '~/components/Hero';
+import Hero, { HeroLoader } from '~/components/Hero';
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -13,28 +13,17 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export async function loader() {
-  const res = await fetch(`${process.env.STRAPI_URL}/api/her`);
-
-  if (!res.ok) {
-    console.error('Error fetching hero data:', res.statusText);
-  }
-
-  const payload = await res.json();
-  const hero = payload?.data || {};
-
   return {
-    title: hero.title || 'Yordan Bian',
-    subtitle: hero.subtitle || 'A Software Engineer',
-    eyebrow: hero.eyebrow || null,
+    hero: await HeroLoader(),
   };
 }
 
 export default function Home() {
-  const { title, subtitle, eyebrow } = useLoaderData<typeof loader>();
+  const { hero } = useLoaderData<typeof loader>();
 
   return (
     <div className="hero">
-      <Hero {...{ title, subtitle, eyebrow }} />
+      <Hero {...hero} />
     </div>
   );
 }
