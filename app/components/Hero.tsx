@@ -17,7 +17,7 @@ export async function HeroLoader() {
       eyebrow: hero.eyebrow,
     };
   } catch (error) {
-    console.error('Error fetching hero data:', error);
+    console.error('Error fetching "Hero" data:', error);
 
     return {
       title: 'Yordan Bian',
