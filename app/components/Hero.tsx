@@ -5,20 +5,26 @@ type HeroProps = {
 };
 
 export async function HeroLoader() {
-  const res = await fetch(`${process.env.STRAPI_URL}/api/hero`);
+  try {
+    const res = await fetch(`${process.env.STRAPI_URL}/api/hero`);
 
-  if (!res.ok) {
-    console.error('Error fetching hero data:', res.statusText);
+    const payload = await res.json();
+    const hero = payload.data;
+
+    return {
+      title: hero.title,
+      subtitle: hero.subtitle,
+      eyebrow: hero.eyebrow,
+    };
+  } catch (error) {
+    console.error('Error fetching hero data:', error);
+
+    return {
+      title: 'Yordan Bian',
+      subtitle: 'A Software Engineer',
+      eyebrow: null,
+    };
   }
-
-  const payload = await res.json();
-  const hero = payload?.data || {};
-
-  return {
-    title: hero.title || 'Yordan Bian',
-    subtitle: hero.subtitle || 'A Software Engineer',
-    eyebrow: hero.eyebrow || null,
-  };
 }
 
 export default function Hero({ eyebrow, title, subtitle }: HeroProps) {
