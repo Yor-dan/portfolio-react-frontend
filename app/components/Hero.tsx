@@ -1,10 +1,10 @@
 type HeroProps = {
-  eyebrow?: string;
+  eyebrow?: string | null;
   title: string;
   subtitle: string;
 };
 
-export async function HeroLoader() {
+export async function HeroLoader(): Promise<HeroProps> {
   try {
     const res = await fetch(`${process.env.STRAPI_URL}/api/hero`);
 

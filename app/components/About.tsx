@@ -1,8 +1,4 @@
-type AboutProps = {
-  about: string;
-};
-
-export async function AboutLoader() {
+export async function AboutLoader(): Promise<string> {
   try {
     const res = await fetch(`${process.env.STRAPI_URL}/api/about`);
     const payload = await res.json();
@@ -13,6 +9,6 @@ export async function AboutLoader() {
   }
 }
 
-export default function About({ about }: AboutProps) {
+export default function About({ about }: { about: string }) {
   return <p>{about}</p>;
 }

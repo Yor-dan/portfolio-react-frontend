@@ -1,9 +1,9 @@
-export type SkillCardProps = {
+type SkillCardProps = {
   name: string;
   cdn: string;
 };
 
-export async function SkillsLoader() {
+export async function SkillsLoader(): Promise<SkillCardProps[] | []> {
   try {
     const res = await fetch(`${process.env.STRAPI_URL}/api/skills`);
     const payload = await res.json();
