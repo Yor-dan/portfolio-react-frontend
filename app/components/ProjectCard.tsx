@@ -1,3 +1,5 @@
+import { formatMonthYear } from '~/utils';
+
 type ProjectCardProps = {
   title: string;
   overview: string;
@@ -37,7 +39,7 @@ export default function ProjectCard({
       <img src={thumbnailImage} alt={title} />
       <h3>{title}</h3>
       <p>{overview}</p>
-      <time>{date}</time>
+      <time dateTime={date}>{formatMonthYear(date)}</time>
       {liveUrl && (
         <a href={liveUrl} target="_blank" rel="noopener noreferrer">
           Live Demo

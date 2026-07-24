@@ -1,3 +1,5 @@
+import { formatMonthYear } from '~/utils';
+
 type ExperienceListItemProps = {
   title: string;
   organization: string;
@@ -37,9 +39,15 @@ export default function ExperienceListItem({
       <h3>{title}</h3>
       <h4>{organization}</h4>
       <img src={orgLogo} alt={organization + ' Logo'} />
-      <time>
-        {startDate} - {endDate || 'Present'}
-      </time>
+      <p>
+        <time dateTime={startDate}>{formatMonthYear(startDate)}</time>
+        {' - '}
+        {endDate ? (
+          <time dateTime={endDate}>{formatMonthYear(endDate)}</time>
+        ) : (
+          <span>Present</span>
+        )}
+      </p>
       <p>{description}</p>
     </div>
   );
