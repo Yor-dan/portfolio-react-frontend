@@ -1,8 +1,9 @@
-// Socials and external links
+// Contacts and socials
 
 type LinkProps = {
   platform: string;
   url: string;
+  category: 'contact' | 'social';
   logoUrl: string;
 };
 
@@ -21,7 +22,7 @@ export default function Link({ platform, url, logoUrl }: LinkProps) {
   return (
     <div>
       <a href={url} target="_blank" rel="noopener noreferrer">
-        <img src={logoUrl} alt={platform + ' Logo'} />
+        <img src={logoUrl} alt={platform + ' Icon'} />
       </a>
     </div>
   );
