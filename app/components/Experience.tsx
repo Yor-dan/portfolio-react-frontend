@@ -1,6 +1,6 @@
 import { formatMonthYear } from '~/utils';
 
-type ExperienceListItemProps = {
+type ExperienceProps = {
   title: string;
   organization: string;
   startDate: string;
@@ -9,31 +9,18 @@ type ExperienceListItemProps = {
   orgLogo: string;
 };
 
-export type StrapiExperience = Omit<ExperienceListItemProps, 'orgLogo'> & {
+export type StrapiExperience = Omit<ExperienceProps, 'orgLogo'> & {
   orgLogo: { url: string };
 };
 
-export async function ExperiencesLoader(): Promise<StrapiExperience[] | []> {
-  try {
-    const res = await fetch(
-      `${process.env.STRAPI_URL}/api/experiences?populate=orgLogo`,
-    );
-    const payload = await res.json();
-    return payload.data;
-  } catch (error) {
-    console.error('Error fetching "Experiences" data:', error);
-    return [];
-  }
-}
-
-export default function ExperienceListItem({
+export default function Experience({
   title,
   organization,
   startDate,
   endDate,
   description,
   orgLogo,
-}: ExperienceListItemProps) {
+}: ExperienceProps) {
   return (
     <div className="experience">
       <h3>{title}</h3>

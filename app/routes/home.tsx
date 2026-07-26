@@ -1,18 +1,12 @@
 import type { Route } from './+types/home';
 import { useLoaderData } from 'react-router';
-import Hero, { HeroLoader } from '~/components/Hero';
+import Hero from '~/components/Hero';
 import Section from '~/components/Section';
-import About, { AboutLoader } from '~/components/About';
-import SkillCard, { SkillsLoader } from '~/components/SkillCard';
-import ProjectCard, {
-  type StrapiProject,
-  ProjectsLoader,
-} from '~/components/ProjectCard';
-import ExperienceListItem, {
-  type StrapiExperience,
-  ExperiencesLoader,
-} from '~/components/Experience';
-import Link, { LinksLoader } from '~/components/Link';
+import About from '~/components/About';
+import SkillCard, { type SkillCardProps } from '~/components/SkillCard';
+import ProjectCard, { type StrapiProject } from '~/components/ProjectCard';
+import Experience, { type StrapiExperience } from '~/components/Experience';
+import Link, { type LinkProps } from '~/components/Link';
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -25,77 +19,106 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export async function loader() {
-  return {
-    strapiUrl: process.env.STRAPI_URL,
-    hero: await HeroLoader(),
-    about: await AboutLoader(),
-    skills: await SkillsLoader(),
-    projects: await ProjectsLoader(),
-    experiences: await ExperiencesLoader(),
-    links: await LinksLoader(),
-  };
+  try {
+    const res = await fetch(
+      `${process.env.STRAPI_URL}/api/portfolio?populate[hero]=*&populate[skills]=*&populate[experiences][populate]=*&populate[projects][populate]=*&populate[certifications][populate]=*&populate[contacts][populate]=*&populate[socials][populate]=*`,
+    );
+    const payload = await res.json();
+    return {
+      strapiUrl: process.env.STRAPI_URL,
+      ...payload.data,
+    };
+  } catch (error) {
+    console.error('Error fetching portfolio data:', error);
+    return {};
+  }
 }
 
 export default function Home() {
-  const { strapiUrl, hero, about, skills, projects, experiences, links } =
-    useLoaderData<typeof loader>();
+  const {
+    strapiUrl,
+    hero,
+    about,
+    skills,
+    experiences,
+    projects,
+    certifications,
+    contacts,
+    socials,
+  } = useLoaderData<typeof loader>();
 
   return (
-    <main>
-      <div className="hero-container">
-        <Hero {...hero} />
-      </div>
-      <Section title="About Me">
-        <About about={about} />
-      </Section>
-      <Section title="Skills">
-        <div className="skill-cards-container">
-          {skills.length > 0 ? (
-            skills.map((skill, index: number) => (
-              <SkillCard key={index} {...skill} />
-            ))
-          ) : (
-            <p>Error fetching skills.</p>
-          )}
+    <>
+      <main>
+        <div className="hero-container">
+          <Hero {...hero} />
         </div>
-      </Section>
-      <Section title="Projects">
-        <div className="project-cards-container">
-          {projects.length > 0 ? (
-            projects.map((project: StrapiProject, index: number) => (
-              <ProjectCard
-                key={index}
-                {...project}
-                thumbnailImage={strapiUrl + project.thumbnailImage.url}
-              />
-            ))
-          ) : (
-            <p>Error fetching projects.</p>
-          )}
-        </div>
-      </Section>
-      <Section title="Experiences">
-        <div className="experiences-container">
-          {experiences.length > 0 ? (
-            experiences.map((experience: StrapiExperience, index: number) => (
-              <ExperienceListItem
-                key={index}
-                {...experience}
-                orgLogo={strapiUrl + experience.orgLogo.url}
-              />
-            ))
-          ) : (
-            <p>Error fetching experiences.</p>
-          )}
-        </div>
-      </Section>
-      <div className="links-container">
-        {links.length > 0 ? (
-          links.map((link, index: number) => <Link key={index} {...link} />)
+        <Section title="About Me">
+          <About about={about} />
+        </Section>
+        <Section title="Skills">
+          <div className="skill-cards-container">
+            {skills.length > 0 ? (
+              skills.map((skill: SkillCardProps, index: number) => (
+                <SkillCard key={index} {...skill} />
+              ))
+            ) : (
+              <p>Error displaying skills.</p>
+            )}
+          </div>
+        </Section>
+        <Section title="Projects">
+          <div className="project-cards-container">
+            {projects.length > 0 ? (
+              projects.map((project: StrapiProject, index: number) => (
+                <ProjectCard
+                  key={index}
+                  {...project}
+                  thumbnailImage={strapiUrl + project.thumbnailImage.url}
+                />
+              ))
+            ) : (
+              <p>Error displaying projects.</p>
+            )}
+          </div>
+        </Section>
+        <Section title="Experiences">
+          <div className="experiences-container">
+            {experiences.length > 0 ? (
+              experiences.map((experience: StrapiExperience, index: number) => (
+                <Experience
+                  key={index}
+                  {...experience}
+                  orgLogo={strapiUrl + experience.orgLogo.url}
+                />
+              ))
+            ) : (
+              <p>Error displaying experiences.</p>
+            )}
+          </div>
+        </Section>
+      </main>
+      <footer>
+        <p>Yordan Bian 2026</p>
+        {contacts.length > 0 && socials.length > 0 ? (
+          <div>
+            <div className="contacts-container">
+              {contacts.map(
+                (link: LinkProps, index: number) =>
+                  link.category === 'contact' && <Link key={index} {...link} />,
+              )}
+            </div>
+            <div className="socials-container">
+              {socials.map(
+                (link: LinkProps, index: number) =>
+                  link.category === 'social' && <Link key={index} {...link} />,
+              )}
+            </div>
+          </div>
         ) : (
-          <p>Error fetching links.</p>
+          <p>Error displaying contacts and socials.</p>
         )}
-      </div>
-    </main>
+      </footer>
+    </>
   );
 }

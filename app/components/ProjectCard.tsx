@@ -13,19 +13,6 @@ export type StrapiProject = Omit<ProjectCardProps, 'thumbnailImage'> & {
   thumbnailImage: { url: string };
 };
 
-export async function ProjectsLoader(): Promise<StrapiProject[] | []> {
-  try {
-    const res = await fetch(
-      `${process.env.STRAPI_URL}/api/projects?populate=thumbnailImage`,
-    );
-    const payload = await res.json();
-    return payload.data;
-  } catch (error) {
-    console.error('Error fetching "Projects" data:', error);
-    return [];
-  }
-}
-
 export default function ProjectCard({
   title,
   overview,
