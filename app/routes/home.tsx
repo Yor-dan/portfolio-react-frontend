@@ -1,11 +1,12 @@
 import type { Route } from './+types/home';
 import { useLoaderData } from 'react-router';
+import { portfolioQuery } from '~/utils';
 import Hero from '~/components/Hero';
 import Section from '~/components/Section';
 import About from '~/components/About';
 import SkillCard, { type SkillCardProps } from '~/components/SkillCard';
-import ProjectCard, { type StrapiProject } from '~/components/ProjectCard';
 import Experience, { type StrapiExperience } from '~/components/Experience';
+import ProjectCard, { type StrapiProject } from '~/components/ProjectCard';
 import Link, { type LinkProps } from '~/components/Link';
 
 export function meta({}: Route.MetaArgs) {
@@ -21,7 +22,7 @@ export function meta({}: Route.MetaArgs) {
 export async function loader() {
   try {
     const res = await fetch(
-      `${process.env.STRAPI_URL}/api/portfolio?populate[hero]=*&populate[skills]=*&populate[experiences][populate]=*&populate[projects][populate]=*&populate[certifications][populate]=*&populate[contacts][populate]=*&populate[socials][populate]=*`,
+      `${process.env.STRAPI_URL}/api/portfolio?${portfolioQuery}`,
     );
     const payload = await res.json();
     return {
