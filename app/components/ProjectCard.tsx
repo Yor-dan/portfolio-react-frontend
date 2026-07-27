@@ -4,26 +4,26 @@ type ProjectCardProps = {
   title: string;
   overview: string;
   date: string;
-  thumbnailImage: string;
+  thumbnail: string;
   liveUrl?: string;
   githubUrl?: string;
 };
 
-export type StrapiProject = Omit<ProjectCardProps, 'thumbnailImage'> & {
-  thumbnailImage: { url: string };
+export type StrapiProject = Omit<ProjectCardProps, 'thumbnail'> & {
+  thumbnail: { url: string };
 };
 
 export default function ProjectCard({
   title,
   overview,
-  thumbnailImage,
+  thumbnail,
   date,
   liveUrl,
   githubUrl,
 }: ProjectCardProps) {
   return (
     <div className="project-card">
-      <img src={thumbnailImage} alt={title} />
+      <img src={thumbnail} alt={title} />
       <h3>{title}</h3>
       <p>{overview}</p>
       <time dateTime={date}>{formatMonthYear(date)}</time>

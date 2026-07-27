@@ -75,7 +75,7 @@ export default function Home() {
                 <ProjectCard
                   key={index}
                   {...project}
-                  thumbnailImage={strapiUrl + project.thumbnailImage.url}
+                  thumbnail={strapiUrl + project.thumbnail.url}
                 />
               ))
             ) : (
