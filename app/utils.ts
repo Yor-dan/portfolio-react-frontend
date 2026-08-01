@@ -16,6 +16,9 @@ export const portfolioQuery = qs.stringify(
       certifications: {
         populate: '*',
       },
+      trainings: {
+        populate: '*',
+      },
       contacts: {
         populate: '*',
       },
