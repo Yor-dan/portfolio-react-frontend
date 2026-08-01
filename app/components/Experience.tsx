@@ -26,7 +26,7 @@ export default function Experience({
       <h3>{title}</h3>
       <h4>{organization}</h4>
       <img src={orgLogo} alt={organization + ' Logo'} />
-      <p>
+      <div>
         <time dateTime={startDate}>{formatMonthYear(startDate)}</time>
         {' - '}
         {endDate ? (
@@ -34,7 +34,7 @@ export default function Experience({
         ) : (
           <span>Present</span>
         )}
-      </p>
+      </div>
       <p>{description}</p>
     </div>
   );
