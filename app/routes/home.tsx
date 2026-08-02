@@ -7,6 +7,8 @@ import About from '~/components/About';
 import SkillCard, { type SkillCardProps } from '~/components/SkillCard';
 import Experience, { type StrapiExperience } from '~/components/Experience';
 import ProjectCard, { type StrapiProject } from '~/components/ProjectCard';
+import Certification from '~/components/Certification';
+import Training from '~/components/Training';
 import Link, { type LinkProps } from '~/components/Link';
 
 export function meta({}: Route.MetaArgs) {
@@ -44,6 +46,7 @@ export default function Home() {
     experiences,
     projects,
     certifications,
+    trainings,
     contacts,
     socials,
   } = useLoaderData<typeof loader>();
@@ -68,6 +71,21 @@ export default function Home() {
             )}
           </div>
         </Section>
+        <Section title="Experiences">
+          <div className="experiences-container">
+            {experiences.length > 0 ? (
+              experiences.map((experience: StrapiExperience, index: number) => (
+                <Experience
+                  key={index}
+                  {...experience}
+                  orgLogo={strapiUrl + experience.orgLogo.url}
+                />
+              ))
+            ) : (
+              <p>Error displaying experiences.</p>
+            )}
+          </div>
+        </Section>
         <Section title="Projects">
           <div className="project-cards-container">
             {projects.length > 0 ? (
@@ -83,18 +101,25 @@ export default function Home() {
             )}
           </div>
         </Section>
-        <Section title="Experiences">
-          <div className="experiences-container">
-            {experiences.length > 0 ? (
-              experiences.map((experience: StrapiExperience, index: number) => (
-                <Experience
-                  key={index}
-                  {...experience}
-                  orgLogo={strapiUrl + experience.orgLogo.url}
-                />
+        <Section title="Certifications">
+          <div className="certifications-container">
+            {certifications.length > 0 ? (
+              certifications.map((certification: any, index: number) => (
+                <Certification key={index} {...certification} />
               ))
             ) : (
-              <p>Error displaying experiences.</p>
+              <p>Error displaying certifications.</p>
+            )}
+          </div>
+        </Section>
+        <Section title="Trainings">
+          <div className="trainings-container">
+            {trainings.length > 0 ? (
+              trainings.map((training: any, index: number) => (
+                <Training key={index} {...training} />
+              ))
+            ) : (
+              <p>Error displaying trainings.</p>
             )}
           </div>
         </Section>
