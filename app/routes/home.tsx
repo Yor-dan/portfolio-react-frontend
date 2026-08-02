@@ -129,16 +129,14 @@ export default function Home() {
         {contacts.length > 0 && socials.length > 0 ? (
           <div>
             <div className="contacts-container">
-              {contacts.map(
-                (link: LinkProps, index: number) =>
-                  link.category === 'contact' && <Link key={index} {...link} />,
-              )}
+              {contacts.map((contact: LinkProps, index: number) => (
+                <Link key={index} {...contact} />
+              ))}
             </div>
             <div className="socials-container">
-              {socials.map(
-                (link: LinkProps, index: number) =>
-                  link.category === 'social' && <Link key={index} {...link} />,
-              )}
+              {socials.map((social: LinkProps, index: number) => (
+                <Link key={index} {...social} />
+              ))}
             </div>
           </div>
         ) : (
