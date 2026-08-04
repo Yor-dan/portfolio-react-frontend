@@ -3,7 +3,9 @@ import qs from 'qs';
 export const portfolioQuery = qs.stringify(
   {
     populate: {
-      hero: true,
+      hero: {
+        populate: '*',
+      },
       skills: {
         populate: '*',
       },
