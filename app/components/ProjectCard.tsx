@@ -24,7 +24,7 @@ export default function ProjectCard({
   return (
     <div className="project-card bg-white border border-neutral-200 flex flex-col justify-between overflow-hidden shadow-sm hover:shadow-lg hover:-translate-y-1.5 transition-all duration-300 group rounded-none">
       <div>
-        <div className="relative aspect-video w-full overflow-hidden bg-neutral-100 border-b border-neutral-200">
+        <div className="relative aspect-[3/2] w-full overflow-hidden bg-neutral-100 border-b border-neutral-200">
           <img
             src={thumbnail}
             alt={title}
