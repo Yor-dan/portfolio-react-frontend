@@ -43,9 +43,12 @@ export async function loader() {
 export default function Home() {
   const data = useLoaderData<typeof loader>() || {};
   const {
-    strapiUrl = '',
-    hero = { title: 'Yordan Bian', subtitle: 'Full-Stack Developer', eyebrow: 'PORTFOLIO / 2026' },
-    about = '',
+    hero = {
+      eyebrow: 'PORTFOLIO / 2026',
+      title: 'Yordan Bian',
+      subtitle: 'A Full-Stack Developer',
+    },
+    about = 'A recent computer science graduate with a passion for buiding web, backend applications, and automation. Proficient in Python and JavaScript, with solid foundation in DSA, OOP, SDLC, and software testing.',
     skills = [],
     experiences = [],
     projects = [],
@@ -91,7 +94,7 @@ export default function Home() {
               start: 'top 85%',
               toggleActions: 'play none none reverse',
             },
-          }
+          },
         );
       });
     }, mainRef);
@@ -101,9 +104,12 @@ export default function Home() {
 
   return (
     <>
-      <main ref={mainRef} className="bg-neutral-50 text-neutral-900 min-h-screen font-sans">
+      <main
+        ref={mainRef}
+        className="bg-neutral-50 text-neutral-900 min-h-screen font-sans"
+      >
         <div className="hero-container">
-          <Hero {...hero} />
+          <Hero {...hero} resumeUrl={hero.resume?.url} />
         </div>
         <Section title="About Me">
           <About about={about} />
@@ -115,7 +121,9 @@ export default function Home() {
                 <SkillCard key={index} {...skill} />
               ))
             ) : (
-              <p className="text-neutral-500 text-sm font-mono col-span-full">No skills listed yet.</p>
+              <p className="text-neutral-500 text-sm font-mono col-span-full">
+                No skills listed yet.
+              </p>
             )}
           </div>
         </Section>
@@ -126,11 +134,13 @@ export default function Home() {
                 <Experience
                   key={index}
                   {...experience}
-                  orgLogo={experience.orgLogo ? strapiUrl + experience.orgLogo.url : ''}
+                  orgLogo={experience.orgLogo.url}
                 />
               ))
             ) : (
-              <p className="text-neutral-500 text-sm font-mono">No experiences listed yet.</p>
+              <p className="text-neutral-500 text-sm font-mono">
+                No experiences listed yet.
+              </p>
             )}
           </div>
         </Section>
@@ -141,11 +151,13 @@ export default function Home() {
                 <ProjectCard
                   key={index}
                   {...project}
-                  thumbnail={project.thumbnail ? strapiUrl + project.thumbnail.url : ''}
+                  thumbnail={project.thumbnail.url}
                 />
               ))
             ) : (
-              <p className="text-neutral-500 text-sm font-mono col-span-full">No projects listed yet.</p>
+              <p className="text-neutral-500 text-sm font-mono col-span-full">
+                No projects listed yet.
+              </p>
             )}
           </div>
         </Section>
@@ -156,7 +168,9 @@ export default function Home() {
                 <Certification key={index} {...certification} />
               ))
             ) : (
-              <p className="text-neutral-500 text-sm font-mono col-span-full">No certifications listed yet.</p>
+              <p className="text-neutral-500 text-sm font-mono col-span-full">
+                No certifications listed yet.
+              </p>
             )}
           </div>
         </Section>
@@ -167,7 +181,9 @@ export default function Home() {
                 <Training key={index} {...training} />
               ))
             ) : (
-              <p className="text-neutral-500 text-sm font-mono col-span-full">No trainings listed yet.</p>
+              <p className="text-neutral-500 text-sm font-mono col-span-full">
+                No trainings listed yet.
+              </p>
             )}
           </div>
         </Section>
@@ -175,10 +191,15 @@ export default function Home() {
       <footer className="bg-neutral-900 text-neutral-300 py-16 px-6 border-t border-neutral-800">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
           <div>
-            <h3 className="text-xl font-bold text-white tracking-tight uppercase font-sans">Yordan Bian</h3>
-            <p className="text-xs font-mono text-neutral-400 mt-1">© {new Date().getFullYear()} — Portfolio</p>
+            <h3 className="text-xl font-bold text-white tracking-tight uppercase font-sans">
+              Yordan Bian
+            </h3>
+            <p className="text-xs font-mono text-neutral-400 mt-1">
+              © {new Date().getFullYear()} — Portfolio
+            </p>
           </div>
-          {((contacts && contacts.length > 0) || (socials && socials.length > 0)) ? (
+          {(contacts && contacts.length > 0) ||
+          (socials && socials.length > 0) ? (
             <div className="flex flex-col sm:flex-row gap-4">
               {contacts && contacts.length > 0 && (
                 <div className="contacts-container flex flex-wrap gap-3">
@@ -196,11 +217,12 @@ export default function Home() {
               )}
             </div>
           ) : (
-            <p className="text-xs text-neutral-500 font-mono">Yordan Bian Portfolio Website</p>
+            <p className="text-xs text-neutral-500 font-mono">
+              Yordan Bian Portfolio Website
+            </p>
           )}
         </div>
       </footer>
     </>
   );
 }
-
