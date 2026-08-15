@@ -36,11 +36,11 @@ export default function ProjectCard({
           />
         </div>
         <div className="p-6">
-          <div className="flex items-center justify-between gap-2 mb-3">
-            <h3 className="text-xl font-bold text-neutral-900 group-hover:text-neutral-700 transition-colors font-sans">
-              {title}
-            </h3>
-            <time dateTime={date} className="text-xs font-mono text-neutral-500 flex-shrink-0 bg-neutral-50 px-2 py-1 border border-neutral-200">
+          <h3 className="text-xl font-bold text-neutral-900 group-hover:text-neutral-700 transition-colors font-sans mb-2">
+            {title}
+          </h3>
+          <div className="mb-3">
+            <time dateTime={date} className="inline-block text-xs font-mono text-neutral-500 bg-neutral-50 px-2 py-1 border border-neutral-200">
               {formatMonthYear(date)}
             </time>
           </div>
