@@ -1,14 +1,16 @@
+import Typewriter from '~/components/hero/Typewriter';
+
 type HeroProps = {
   eyebrow?: string;
   title: string;
-  subtitle: string;
+  subtitles?: string[];
   resumeUrl?: string;
 };
 
 export default function Hero({
   eyebrow,
   title,
-  subtitle,
+  subtitles = [],
   resumeUrl,
 }: HeroProps) {
   return (
@@ -22,7 +24,7 @@ export default function Hero({
           {title}
         </h1>
         <p className="text-xl sm:text-2xl text-neutral-600 font-normal leading-relaxed mb-10 max-w-2xl">
-          {subtitle}
+          <Typewriter words={subtitles} />
         </p>
         <div>
           {resumeUrl && (
