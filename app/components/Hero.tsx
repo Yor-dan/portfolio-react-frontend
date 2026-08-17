@@ -23,7 +23,7 @@ export default function Hero({
         <h1 className="text-5xl sm:text-7xl lg:text-8xl font-black tracking-tight text-neutral-900 mb-6 uppercase leading-none font-sans">
           {title}
         </h1>
-        <p className="text-xl sm:text-2xl text-neutral-600 font-normal leading-relaxed mb-10 max-w-2xl">
+        <p className="text-xl sm:text-2xl text-neutral-600 font-normal leading-relaxed mb-10 max-w-2xl min-h-14 sm:min-h-10 flex items-center">
           <Typewriter words={subtitles} />
         </p>
         <div>
