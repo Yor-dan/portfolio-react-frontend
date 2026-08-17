@@ -26,17 +26,10 @@ export function meta({}: Route.MetaArgs) {
 
 export async function loader() {
   try {
-    const rawStrapiUrl = process.env.STRAPI_URL || 'http://localhost:1337';
-    const strapiBaseUrl =
-      rawStrapiUrl.startsWith('http://') || rawStrapiUrl.startsWith('https://')
-        ? rawStrapiUrl
-        : `http://${rawStrapiUrl}`;
-
-    const url = `${strapiBaseUrl}/api/portfolio?${portfolioQuery}`;
+    const url = `${process.env.STRAPI_URL}/api/portfolio?${portfolioQuery}`;
     const res = await fetch(url);
     const payload = await res.json();
     return {
-      strapiUrl: strapiBaseUrl,
       ...payload.data,
     };
   } catch (error) {
@@ -50,8 +43,7 @@ export default function Home() {
   const {
     hero = {
       eyebrow: 'PORTFOLIO / 2026',
-      title: 'Yordan T. Bian',
-      subtitle: 'A Full-Stack Developer',
+      title: 'Yordan Bian',
     },
     about = 'A recent computer science graduate with a passion for buiding web, backend applications, and automation. Proficient in Python and JavaScript, with solid foundation in DSA, OOP, SDLC, and software testing.',
     skills = [],
@@ -63,14 +55,13 @@ export default function Home() {
     socials = [],
   } = data;
 
-  const heroSubtitles =
-    hero.HeroSubtitle && Array.isArray(hero.HeroSubtitle) && hero.HeroSubtitle.length > 0
-      ? hero.HeroSubtitle.map((item: { text?: string }) => item.text || '').filter(Boolean)
-      : hero.subtitles && Array.isArray(hero.subtitles) && hero.subtitles.length > 0
-      ? hero.subtitles
-      : hero.subtitle
-      ? [hero.subtitle]
-      : ['A Full-Stack Developer'];
+  const heroSubtitles: string[] = hero.HeroSubtitle.map(
+    (subtitle: { text: string }) => subtitle.text,
+  ) || [
+    'A Backend Developer.',
+    'A Cloud Engineer.',
+    'An AI/Automation Enthusiast.',
+  ];
 
   const mainRef = useRef<HTMLElement>(null);
 
