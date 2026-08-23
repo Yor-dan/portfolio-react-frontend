@@ -2,7 +2,7 @@ import { formatMonthYear } from '~/utils';
 
 type ProjectCardProps = {
   title: string;
-  overview: string;
+  description: string;
   date: string;
   thumbnail: string;
   liveUrl?: string;
@@ -15,7 +15,7 @@ export type StrapiProject = Omit<ProjectCardProps, 'thumbnail'> & {
 
 export default function ProjectCard({
   title,
-  overview,
+  description,
   thumbnail,
   date,
   liveUrl,
@@ -24,7 +24,7 @@ export default function ProjectCard({
   return (
     <div className="project-card bg-white border border-neutral-200 flex flex-col justify-between overflow-hidden shadow-sm hover:shadow-lg hover:-translate-y-1.5 transition-all duration-300 group rounded-none">
       <div>
-        <div className="relative aspect-[3/2] w-full overflow-hidden bg-neutral-100 border-b border-neutral-200">
+        <div className="relative aspect-3/2 w-full overflow-hidden bg-neutral-100 border-b border-neutral-200">
           <img
             src={thumbnail}
             alt={title}
@@ -36,16 +36,19 @@ export default function ProjectCard({
           />
         </div>
         <div className="p-6">
-          <h3 className="text-xl font-bold text-neutral-900 group-hover:text-neutral-700 transition-colors font-sans mb-2">
+          <h3 className="text-xl font-bold text-neutral-900 group-hover:text-neutral-700 transition-colors font-sans mb-1">
             {title}
           </h3>
-          <div className="mb-3">
-            <time dateTime={date} className="inline-block text-xs font-mono text-neutral-500 bg-neutral-50 px-2 py-1 border border-neutral-200">
+          <div className="mb-4">
+            <time
+              dateTime={date}
+              className="inline-block text-sm font-sans text-neutral-500"
+            >
               {formatMonthYear(date)}
             </time>
           </div>
-          <p className="text-neutral-600 text-sm leading-relaxed mb-6 font-sans">
-            {overview}
+          <p className="text-neutral-600 text-base leading-relaxed mb-6 font-sans">
+            {description}
           </p>
         </div>
       </div>
@@ -74,4 +77,3 @@ export default function ProjectCard({
     </div>
   );
 }
-
