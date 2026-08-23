@@ -36,18 +36,18 @@ export default function ProjectCard({
           />
         </div>
         <div className="p-6">
-          <h3 className="text-xl font-bold text-neutral-900 group-hover:text-neutral-700 transition-colors font-sans mb-1">
+          <h3 className="text-lg md:text-xl font-bold text-neutral-900 group-hover:text-neutral-700 transition-colors font-sans">
             {title}
           </h3>
           <div className="mb-4">
             <time
               dateTime={date}
-              className="inline-block text-sm font-sans text-neutral-500"
+              className="inline-block text-xs md:text-sm font-bold font-sans text-neutral-500"
             >
               {formatMonthYear(date)}
             </time>
           </div>
-          <p className="text-neutral-600 text-base leading-relaxed mb-6 font-sans">
+          <p className="text-neutral-600 text-sm md:text-base leading-relaxed mb-6 font-sans">
             {description}
           </p>
         </div>
