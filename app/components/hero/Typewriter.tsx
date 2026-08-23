@@ -37,7 +37,7 @@ export default function Typewriter({ words = [] }: TypewriterProps) {
         tl.to(textRef.current, {
           duration: word.length * 0.08,
           text: {
-            value: word,
+            value: word + '.',
             rtl: false,
           },
           ease: 'none',
