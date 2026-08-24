@@ -42,7 +42,7 @@ export default function ProjectCard({
           <div className="mb-4">
             <time
               dateTime={date}
-              className="inline-block text-xs md:text-sm font-bold font-sans text-neutral-500"
+              className="inline-block text-xs font-bold font-sans text-neutral-500"
             >
               {formatMonthYear(date)}
             </time>
