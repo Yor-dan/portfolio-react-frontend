@@ -123,7 +123,7 @@ export default function Home() {
         <Section title="About Me">
           <About about={about} />
         </Section>
-        <Section title="Skills">
+        <Section title="Core Stack">
           <div className="skill-cards-container grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
             {skills && skills.length > 0 ? (
               skills.map((skill: SkillCardProps, index: number) => (
@@ -153,7 +153,7 @@ export default function Home() {
             )}
           </div>
         </Section>
-        <Section title="Projects">
+        <Section title="Projects" subtitle="Click to read more.">
           <div className="project-cards-container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {projects && projects.length > 0 ? (
               projects.map((project: StrapiProject, index: number) => (
