@@ -20,7 +20,7 @@ export default function Hero({
           <span className="w-2 h-2 bg-neutral-900 inline-block animate-pulse" />
           {eyebrow}
         </div>
-        <h1 className="text-7xl lg:text-8xl font-black tracking-tight text-neutral-900 mb-6 uppercase leading-none font-sans">
+        <h1 className="text-6xl min-[22rem]:text-7xl lg:text-8xl font-black tracking-tight text-neutral-900 mb-6 uppercase leading-none font-sans">
           {title}
         </h1>
         <p className="text-xl sm:text-2xl text-neutral-600 font-normal leading-relaxed mb-10 max-w-2xl min-h-14 sm:min-h-10 flex items-center">
@@ -32,7 +32,7 @@ export default function Hero({
               href={resumeUrl}
               rel="noopener noreferrer"
               target="_blank"
-              className="inline-flex items-center gap-3 bg-neutral-900 hover:bg-neutral-800 text-white font-medium text-sm px-7 py-4 border border-neutral-900 shadow-sm hover:shadow-md transition-all rounded-none group"
+              className="inline-flex items-center gap-3 bg-neutral-900 hover:bg-neutral-800 text-white font-medium text-xs sm:text-sm px-4 py-3 border border-neutral-900 shadow-sm hover:shadow-md transition-all rounded-none group"
             >
               <span>Download resume</span>
               <svg
