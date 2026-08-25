@@ -9,10 +9,10 @@ import Section from '~/components/Section';
 import About from '~/components/About';
 import SkillCard, { type SkillCardProps } from '~/components/SkillCard';
 import Experience, { type StrapiExperience } from '~/components/Experience';
-import ProjectCard, { type StrapiProject } from '~/components/ProjectCard';
+import ProjectCard from '~/components/ProjectCard';
+import type { Project } from '~/types';
 import Certification from '~/components/Certification';
 import Training from '~/components/Training';
-import Link, { type LinkProps } from '~/components/Link';
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -156,7 +156,7 @@ export default function Home() {
         <Section title="Projects" subtitle="Click to read more.">
           <div className="project-cards-container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {projects && projects.length > 0 ? (
-              projects.map((project: StrapiProject, index: number) => (
+              projects.map((project: Project, index: number) => (
                 <ProjectCard
                   key={index}
                   {...project}
@@ -197,41 +197,6 @@ export default function Home() {
           </div>
         </Section>
       </main>
-      <footer className="bg-neutral-900 text-neutral-300 py-16 px-6 border-t border-neutral-800">
-        <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
-          <div>
-            <h3 className="text-xl font-bold text-white tracking-tight uppercase font-sans">
-              Yordan Bian
-            </h3>
-            <p className="text-xs font-mono text-neutral-400 mt-1">
-              © {new Date().getFullYear()} — Portfolio
-            </p>
-          </div>
-          {(contacts && contacts.length > 0) ||
-          (socials && socials.length > 0) ? (
-            <div className="flex flex-col sm:flex-row gap-4">
-              {contacts && contacts.length > 0 && (
-                <div className="contacts-container flex flex-wrap gap-3">
-                  {contacts.map((contact: LinkProps, index: number) => (
-                    <Link key={index} {...contact} />
-                  ))}
-                </div>
-              )}
-              {socials && socials.length > 0 && (
-                <div className="socials-container flex flex-wrap gap-3">
-                  {socials.map((social: LinkProps, index: number) => (
-                    <Link key={index} {...social} />
-                  ))}
-                </div>
-              )}
-            </div>
-          ) : (
-            <p className="text-xs text-neutral-500 font-mono">
-              Yordan Bian Portfolio Website
-            </p>
-          )}
-        </div>
-      </footer>
     </>
   );
 }

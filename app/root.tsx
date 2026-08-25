@@ -6,8 +6,11 @@ import {
   Scripts,
   ScrollRestoration,
 } from "react-router";
+import qs from "qs";
 
 import type { Route } from "./+types/root";
+import Footer from "~/components/Footer";
+import type { LinkProps } from "~/components/Link";
 import "./app.css";
 
 export const links: Route.LinksFunction = () => [
@@ -22,6 +25,39 @@ export const links: Route.LinksFunction = () => [
     href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap",
   },
 ];
+
+export async function loader() {
+  try {
+    const query = qs.stringify(
+      {
+        populate: {
+          contacts: {
+            populate: "*",
+          },
+          socials: {
+            populate: "*",
+          },
+        },
+      },
+      {
+        encodeValuesOnly: true,
+      },
+    );
+    const url = `${process.env.STRAPI_URL}/api/portfolio?${query}`;
+    const res = await fetch(url);
+    const payload = await res.json();
+    return {
+      contacts: (payload.data?.contacts as LinkProps[]) || [],
+      socials: (payload.data?.socials as LinkProps[]) || [],
+    };
+  } catch (error) {
+    console.error("Error fetching footer data in root loader:", error);
+    return {
+      contacts: [],
+      socials: [],
+    };
+  }
+}
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -42,7 +78,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  return <Outlet />;
+  return (
+    <>
+      <Outlet />
+      <Footer />
+    </>
+  );
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {

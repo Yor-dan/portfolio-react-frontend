@@ -12,6 +12,7 @@
     "@gsap/react": "^2.1.2",
     "@react-router/node": "8.0.0",
     "@react-router/serve": "8.0.0",
+    "dompurify": "^3.4.14",
     "gsap": "^3.15.0",
     "isbot": "^5.1.36",
     "qs": "^6.15.3",
