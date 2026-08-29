@@ -1,21 +1,32 @@
+import { useRouteLoaderData } from 'react-router';
+import type { Route } from '../../routes/+types/home';
 import { useRef } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { TextPlugin } from 'gsap/TextPlugin';
 
-type TypewriterProps = {
-  words?: string[];
-};
-
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(TextPlugin);
 }
 
-export default function Typewriter({ words = [] }: TypewriterProps) {
+export default function Typewriter() {
+  let { words } =
+    useRouteLoaderData<Route.ComponentProps['loaderData']>('routes/home') ?? {};
+
+  // fallback values
+  if (!words) {
+    words = [
+      'A Backend Developer',
+      'A Cloud Engineer',
+      'An Automation Enthusiast',
+    ];
+  }
+
   const containerRef = useRef<HTMLSpanElement>(null);
   const textRef = useRef<HTMLSpanElement>(null);
   const cursorRef = useRef<HTMLSpanElement>(null);
 
+  // animation
   useGSAP(
     () => {
       if (cursorRef.current) {
@@ -32,7 +43,7 @@ export default function Typewriter({ words = [] }: TypewriterProps) {
 
       const tl = gsap.timeline({ repeat: -1 });
 
-      words.forEach((word) => {
+      words.forEach((word: string) => {
         if (!word) return;
         tl.to(textRef.current, {
           duration: word.length * 0.08,

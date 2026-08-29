@@ -1,16 +1,8 @@
 import { formatMonthYear } from '~/utils';
+import type { Experience } from '~/types';
 
-type ExperienceProps = {
-  title: string;
-  organization: string;
-  startDate: string;
-  endDate?: string;
-  description: string;
+export type ExperienceProps = Omit<Experience, 'orgLogo'> & {
   orgLogo: string;
-};
-
-export type StrapiExperience = Omit<ExperienceProps, 'orgLogo'> & {
-  orgLogo: { url: string };
 };
 
 export default function Experience({
@@ -24,17 +16,17 @@ export default function Experience({
   return (
     <div className="experience relative pl-8 sm:pl-10 pb-12 last:pb-0 group">
       {/* Vertical Timeline Line */}
-      <div className="absolute left-[15px] sm:left-[19px] top-4 bottom-0 w-px bg-neutral-200 group-last:hidden" />
-      
+      <div className="absolute left-3.75 sm:left-4.75 top-4 bottom-0 w-px bg-neutral-200 group-last:hidden" />
+
       {/* Node Marker */}
-      <div className="absolute left-[12px] sm:left-[16px] top-2.5 w-2.5 h-2.5 bg-neutral-900 border-2 border-neutral-900 group-hover:bg-white transition-colors rounded-none" />
+      <div className="absolute left-3 sm:left-4 top-2.5 w-2.5 h-2.5 bg-neutral-900 border-2 border-neutral-900 group-hover:bg-white transition-colors rounded-none" />
 
       {/* Card Content */}
       <div className="bg-white border border-neutral-200 p-6 sm:p-8 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 rounded-none">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4 pb-4 border-b border-neutral-100">
           <div className="flex items-center gap-4">
             {orgLogo && (
-              <div className="w-12 h-12 flex items-center justify-center border border-neutral-200 p-1.5 bg-neutral-50 rounded-none flex-shrink-0">
+              <div className="w-12 h-12 flex items-center justify-center border border-neutral-200 p-1.5 bg-neutral-50 rounded-none shrink-0">
                 <img
                   src={orgLogo}
                   alt={organization + ' Logo'}
@@ -46,8 +38,12 @@ export default function Experience({
               </div>
             )}
             <div>
-              <h3 className="text-lg sm:text-xl font-bold text-neutral-900 tracking-tight">{title}</h3>
-              <h4 className="text-sm font-medium text-neutral-600">{organization}</h4>
+              <h3 className="text-lg sm:text-xl font-bold text-neutral-900 tracking-tight">
+                {title}
+              </h3>
+              <h4 className="text-sm font-medium text-neutral-600">
+                {organization}
+              </h4>
             </div>
           </div>
           <div className="text-xs font-mono uppercase tracking-wider text-neutral-500 bg-neutral-50 px-3 py-1.5 border border-neutral-200 self-start sm:self-auto rounded-none">
@@ -67,4 +63,3 @@ export default function Experience({
     </div>
   );
 }
-

@@ -4,13 +4,15 @@ import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { portfolioQuery } from '~/utils';
+
+import type * as Types from '~/types';
+
 import Hero from '~/components/Hero';
 import Section from '~/components/Section';
 import About from '~/components/About';
-import SkillCard, { type SkillCardProps } from '~/components/SkillCard';
-import Experience, { type StrapiExperience } from '~/components/Experience';
+import SkillCard from '~/components/SkillCard';
+import Experience from '~/components/Experience';
 import ProjectCard from '~/components/ProjectCard';
-import type { Project } from '~/types';
 import Certification from '~/components/Certification';
 import Training from '~/components/Training';
 
@@ -27,41 +29,38 @@ export function meta({}: Route.MetaArgs) {
 export async function loader() {
   try {
     const url = `${process.env.STRAPI_URL}/api/portfolio?${portfolioQuery}`;
-    const res = await fetch(url);
-    const payload = await res.json();
+    const response = await fetch(url);
+    const result = await response.json();
+    const { data } = result;
     return {
-      ...payload.data,
+      hero: data.hero as Types.Hero,
+      about: data.about as string,
+      skills: data.skills as Types.Skill[],
+      experiences: data.experiences as Types.Experience[],
+      projects: data.projects as Types.Project[],
+      certifications: data.certifications as Types.Certification[],
+      trainings: data.trainings as Types.Training[],
+      words: data.hero.HeroSubtitle.map(
+        (subtitle: { text: string }) => subtitle.text,
+      ) as string[],
     };
   } catch (error) {
     console.error('Error fetching portfolio data:', error);
-    return {};
+    return null;
   }
 }
 
 export default function Home() {
-  const data = useLoaderData<typeof loader>() || {};
+  const data = useLoaderData<typeof loader>();
   const {
-    hero = {
-      eyebrow: 'PORTFOLIO / 2026',
-      title: 'Yordan Bian',
-    },
-    about = 'A recent computer science graduate with a passion for buiding web, backend applications, and automation. Proficient in Python and JavaScript, with solid foundation in DSA, OOP, SDLC, and software testing.',
-    skills = [],
-    experiences = [],
-    projects = [],
-    certifications = [],
-    trainings = [],
-    contacts = [],
-    socials = [],
-  } = data;
-
-  const heroSubtitles: string[] = hero.HeroSubtitle.map(
-    (subtitle: { text: string }) => subtitle.text,
-  ) || [
-    'A Backend Developer.',
-    'A Cloud Engineer.',
-    'An AI/Automation Enthusiast.',
-  ];
+    hero,
+    about,
+    skills,
+    experiences,
+    projects,
+    certifications,
+    trainings,
+  } = data ?? {};
 
   const mainRef = useRef<HTMLElement>(null);
 
@@ -115,9 +114,9 @@ export default function Home() {
       >
         <div className="hero-container">
           <Hero
-            {...hero}
-            resumeUrl={hero.resume?.url}
-            subtitles={heroSubtitles}
+            eyebrow={hero?.eyebrow ?? 'PORTFOLIO / 2026'}
+            title={hero?.title ?? 'Yordan Bian'}
+            resumeUrl={hero?.resume?.url}
           />
         </div>
         <Section title="About Me">
@@ -126,7 +125,7 @@ export default function Home() {
         <Section title="Core Stack">
           <div className="skill-cards-container grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
             {skills && skills.length > 0 ? (
-              skills.map((skill: SkillCardProps, index: number) => (
+              skills.map((skill, index: number) => (
                 <SkillCard key={index} {...skill} />
               ))
             ) : (
@@ -139,7 +138,7 @@ export default function Home() {
         <Section title="Experiences">
           <div className="experiences-container max-w-4xl mx-auto">
             {experiences && experiences.length > 0 ? (
-              experiences.map((experience: StrapiExperience, index: number) => (
+              experiences.map((experience, index: number) => (
                 <Experience
                   key={index}
                   {...experience}
@@ -156,7 +155,7 @@ export default function Home() {
         <Section title="Projects" subtitle="Click to read more.">
           <div className="project-cards-container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {projects && projects.length > 0 ? (
-              projects.map((project: Project, index: number) => (
+              projects.map((project, index: number) => (
                 <ProjectCard
                   key={index}
                   {...project}

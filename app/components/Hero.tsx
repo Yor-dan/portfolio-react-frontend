@@ -1,18 +1,11 @@
+import type { Hero } from '~/types';
 import Typewriter from '~/components/hero/Typewriter';
 
-type HeroProps = {
-  eyebrow?: string;
-  title: string;
-  subtitles?: string[];
+type HeroProps = Omit<Hero, 'resume'> & {
   resumeUrl?: string;
 };
 
-export default function Hero({
-  eyebrow,
-  title,
-  subtitles = [],
-  resumeUrl,
-}: HeroProps) {
+export default function Hero({ eyebrow, title, resumeUrl }: HeroProps) {
   return (
     <section className="hero-container relative min-h-[85vh] sm:min-h-screen flex flex-col justify-center items-start px-6 max-w-6xl mx-auto py-20 bg-grid-pattern overflow-hidden">
       <div className="hero-content relative z-10 max-w-3xl">
@@ -24,7 +17,7 @@ export default function Hero({
           {title}
         </h1>
         <p className="text-xl sm:text-2xl text-neutral-600 font-normal leading-relaxed mb-10 max-w-2xl min-h-14 sm:min-h-10 flex items-center">
-          <Typewriter words={subtitles} />
+          <Typewriter />
         </p>
         <div>
           {resumeUrl && (
@@ -34,7 +27,7 @@ export default function Hero({
               target="_blank"
               className="inline-flex items-center gap-3 bg-neutral-900 hover:bg-neutral-800 text-white font-medium text-xs sm:text-sm px-4 py-3 border border-neutral-900 shadow-sm hover:shadow-md transition-all rounded-none group"
             >
-              <span>Download resume</span>
+              <span>View resume</span>
               <svg
                 className="w-4 h-4 transform group-hover:translate-y-0.5 transition-transform"
                 fill="none"

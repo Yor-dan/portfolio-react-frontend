@@ -1,14 +1,5 @@
+import type { Certification } from '~/types';
 import { formatMonthYear } from '~/utils';
-
-type CertificationProps = {
-  iconUrl: string;
-  name: string;
-  issuer: string;
-  validFrom: string;
-  validUntil: string;
-  url: string;
-  description?: string;
-};
 
 export default function Certification({
   iconUrl,
@@ -18,7 +9,7 @@ export default function Certification({
   validUntil,
   url,
   description,
-}: CertificationProps) {
+}: Certification) {
   return (
     <div className="certification-item bg-white border border-neutral-200 p-6 flex flex-col justify-between shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 rounded-none">
       <div>

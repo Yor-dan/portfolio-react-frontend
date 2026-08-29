@@ -1,13 +1,5 @@
+import type { Training } from '~/types';
 import { formatMonthYear } from '~/utils';
-
-type TrainingProps = {
-  name: string;
-  organizer: string;
-  startDate: string;
-  endDate: string;
-  iconUrl: string;
-  description: string;
-};
 
 export default function Training({
   name,
@@ -16,7 +8,7 @@ export default function Training({
   endDate,
   iconUrl,
   description,
-}: TrainingProps) {
+}: Training) {
   return (
     <div className="training-item bg-white border border-neutral-200 p-6 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 rounded-none">
       <div className="flex items-center gap-4 mb-4">

@@ -1,9 +1,6 @@
-export type SkillCardProps = {
-  name: string;
-  iconUrl: string;
-};
+import type { Skill } from '~/types';
 
-export default function SkillCard({ name, iconUrl }: SkillCardProps) {
+export default function SkillCard({ name, iconUrl }: Skill) {
   return (
     <div className="skill-card bg-white border border-neutral-200 p-6 flex flex-col items-center justify-center gap-4 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-md hover:border-neutral-400 group rounded-none">
       <div className="w-16 h-16 sm:w-20 sm:h-20 flex items-center justify-center bg-neutral-50 border border-neutral-100 p-3 group-hover:bg-white group-hover:scale-105 transition-all duration-300">
@@ -22,4 +19,3 @@ export default function SkillCard({ name, iconUrl }: SkillCardProps) {
     </div>
   );
 }
-

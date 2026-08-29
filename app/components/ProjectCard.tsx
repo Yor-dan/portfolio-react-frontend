@@ -1,7 +1,7 @@
 import { formatMonthYear } from '~/utils';
 import type { Project } from '~/types';
 
-export type ProjectCardProps = Omit<Project, 'thumbnail'> & {
+type ProjectCardProps = Omit<Project, 'thumbnail'> & {
   thumbnail: string;
 };
 
