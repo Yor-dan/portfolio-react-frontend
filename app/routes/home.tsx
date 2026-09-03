@@ -153,6 +153,9 @@ export default function Home() {
           </div>
         </Section>
         <Section title="Projects" subtitle="Click to read more.">
+          <blockquote className="text-center text-xl sm:text-2xl italic text-neutral-600 mb-12">
+            "The best way to learn something is to build with it."
+          </blockquote>
           <div className="project-cards-container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {projects && projects.length > 0 ? (
               projects.map((project, index: number) => (

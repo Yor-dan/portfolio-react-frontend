@@ -118,7 +118,7 @@ export default function ProjectRoute() {
         <main className="max-w-5xl mx-auto px-6 sm:px-10 lg:px-16 pt-8 sm:pt-12 pb-16">
           {/* Top Banner / Thumbnail Image */}
           {project.thumbnail?.url && (
-            <div className="relative aspect-16/9 sm:aspect-21/9 w-full overflow-hidden bg-neutral-100 border border-neutral-200 shadow-sm mb-10 sm:mb-14 rounded-none">
+            <div className="relative aspect-video sm:aspect-21/9 w-full overflow-hidden bg-neutral-100 border border-neutral-200 shadow-sm mb-10 sm:mb-14 rounded-none">
               <img
                 src={project.thumbnail.url}
                 alt={project.title}
@@ -138,7 +138,7 @@ export default function ProjectRoute() {
               <div className="mb-4">
                 <time
                   dateTime={project.date}
-                  className="inline-block text-xs font-mono font-bold uppercase tracking-wider text-neutral-600 bg-white border border-neutral-200 px-3 py-1 shadow-2xs rounded-none"
+                  className="inline-block text-xs font-mono font-bold tracking-wider text-neutral-600 bg-white border border-neutral-200 px-3 py-1 shadow-2xs rounded-none"
                 >
                   {formatMonthYear(project.date)}
                 </time>
@@ -146,7 +146,7 @@ export default function ProjectRoute() {
             )}
 
             {/* Title */}
-            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-neutral-900 uppercase font-sans mb-6 leading-tight">
+            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-neutral-900 font-sans mb-6 leading-tight">
               {project.title}
             </h1>
 
