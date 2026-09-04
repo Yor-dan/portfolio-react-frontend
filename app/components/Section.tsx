@@ -15,7 +15,7 @@ export default function Section({ title, subtitle, children }: SectionProps) {
           <div className="h-px bg-neutral-200 flex-1" />
         </div>
         {subtitle && (
-          <p className="mt-2 text-base md:text-lg text-neutral-500 font-sans">
+          <p className="mt-2 text-base md:text-lg text-neutral-500 font-sans italic">
             {subtitle}
           </p>
         )}
